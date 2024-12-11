@@ -20,7 +20,7 @@ category_filter = st.sidebar.multiselect("Kategorie produktów", data["Category"
 
 #TODO: 2 opcje filtracji po kategorii+wykresy
 #My filters
-payment_filter = st.sidebar.slider("Sposób opłaty", int(data["Payment method"].min()), int(data["Payment method"].max()), (18, 60))
+#payment_filter = st.sidebar.slider("Sposób opłaty", int(data["Payment method"].min()), int(data["Payment method"].max()), (18, 60))
 
 # Filtruj dane
 filtered_data = data[(data["Age"] >= age_filter[0]) & 

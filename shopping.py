@@ -17,6 +17,11 @@ st.sidebar.title("Opcje analizy")
 age_filter = st.sidebar.slider("Wiek klienta", int(data["Age"].min()), int(data["Age"].max()), (18, 60))
 category_filter = st.sidebar.multiselect("Kategorie produktów", data["Category"].unique(), data["Category"].unique())
 
+
+#TODO: 2 opcje filtracji po kategorii+wykresy
+#My filters
+payment_filter = st.sidebar.slider("Sposób opłaty", int(data["Payment method"].min()), int(data["Payment method"].max()), (18, 60))
+
 # Filtruj dane
 filtered_data = data[(data["Age"] >= age_filter[0]) & 
                      (data["Age"] <= age_filter[1]) & 

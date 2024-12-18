@@ -17,11 +17,6 @@ st.sidebar.title("Opcje analizy")
 age_filter = st.sidebar.slider("Wiek klienta", int(data["Age"].min()), int(data["Age"].max()), (18, 60))
 category_filter = st.sidebar.multiselect("Kategorie produktów", data["Category"].unique(), data["Category"].unique())
 
-
-#TODO: 2 opcje filtracji po kategorii+wykresy
-#My filters
-#payment_filter = st.sidebar.slider("Sposób opłaty", int(data["Payment method"].min()), int(data["Payment method"].max()), (18, 60))
-
 # Filtruj dane
 filtered_data = data[(data["Age"] >= age_filter[0]) & 
                      (data["Age"] <= age_filter[1]) & 
@@ -57,4 +52,33 @@ fig, ax = plt.subplots()
 filtered_data["Age"].hist(bins=20, ax=ax)
 ax.set_xlabel("Wiek")
 ax.set_ylabel("Liczba klientów")
+st.pyplot(fig)
+
+# Wykres 4: Sposób płatności wg kategorii
+st.write("### Sposób płatności wg kategorii")
+payment_category = filtered_data.groupby("Category")["Payment Method"].value_counts().unstack()
+fig, ax = plt.subplots()
+payment_category.plot(kind="bar", stacked=True, ax=ax)
+ax.set_xlabel("Kategoria")
+ax.set_ylabel("Liczba transakcji")
+ax.set_title("Rozkład sposobów płatności wg kategorii")
+st.pyplot(fig)
+
+# Wykres 5: Łączna kwota zakupów wg wieku
+st.write("### Łączna kwota zakupów wg wieku")
+age_purchase = filtered_data.groupby("Age")["Purchase Amount (USD)"].sum()
+fig, ax = plt.subplots()
+age_purchase.plot(ax=ax)
+ax.set_xlabel("Wiek")
+ax.set_ylabel("Łączna kwota zakupów (USD)")
+ax.set_title("Łączna kwota zakupów w zależności od wieku")
+st.pyplot(fig)
+
+# Wykres 6: Liczba zakupów wg sezonu
+st.write("### Liczba zakupów wg sezonu")
+season_counts = filtered_data["Season"].value_counts()
+fig, ax = plt.subplots()
+season_counts.plot(kind="pie", autopct='%1.1f%%', ax=ax)
+ax.set_ylabel("")
+ax.set_title("Procentowy udział zakupów w sezonach")
 st.pyplot(fig)

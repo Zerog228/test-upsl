@@ -18,7 +18,6 @@ data = load_data()
 # Ustawienia strony
 st.title("🛍️ Shopping Trends Dashboard")
 st.sidebar.title("⚙️ Opcje analizy")
-st.set_page_config(page_title="Shopping Trends Dashboard", layout="wide", initial_sidebar_state="expanded")
 
 # Filtry
 st.sidebar.markdown("### Filtry danych")

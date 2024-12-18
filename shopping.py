@@ -4,20 +4,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib as mpl
 
-# Set dark theme for plots and background
+# Set dark theme for plots
 mpl.style.use("dark_background")
 sns.set_style("darkgrid")
-
-# Custom CSS for dark background in Streamlit
-st.markdown(
-    """
-    <style>
-    .main {background-color: black; color: white;}
-    .sidebar .sidebar-content {background-color: #333333; color: white;}
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 # Wczytaj dane
 @st.cache
@@ -107,8 +96,8 @@ st.pyplot(fig)
 # Wykres 6: Liczba zakupów wg sezonu
 st.write("### 🕐 Liczba zakupów wg sezonu")
 season_counts = filtered_data["Season"].value_counts()
-fig, ax = plt.subplots(figsize=(8, 8))
-season_counts.plot(kind="pie", autopct='%1.1f%%', ax=ax, colors=sns.color_palette("pastel"))
+fig, ax = plt.subplots(figsize=(10, 10))
+season_counts.plot(kind="pie", autopct='%1.1f%%', ax=ax, colors=sns.color_palette("bright"))
 ax.set_ylabel("")
 ax.set_title("Procentowy udział zakupów w sezonach", fontsize=16, color="cyan")
 st.pyplot(fig)

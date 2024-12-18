@@ -48,7 +48,7 @@ fig, ax = plt.subplots(figsize=(12, 6))
 sns.barplot(x=category_counts.index, y=category_counts.values, ax=ax, palette="Spectral")
 ax.set_xlabel("Kategoria", fontsize=12, color="white")
 ax.set_ylabel("Liczba zakupów", fontsize=12, color="white")
-ax.set_title("Zakupy wg kategorii", fontsize=16, color="cyan")
+ax.set_title("Zakupy wg kategorii", fontsize=16, color="yellow")
 ax.tick_params(axis='x', rotation=45, labelsize=10, colors="white")
 ax.tick_params(axis='y', colors="white")
 st.pyplot(fig)
@@ -60,7 +60,7 @@ fig, ax = plt.subplots(figsize=(12, 6))
 sns.barplot(x=season_mean.index, y=season_mean.values, ax=ax, palette="cool")
 ax.set_xlabel("Sezon", fontsize=12, color="white")
 ax.set_ylabel("Średnia kwota zakupów (USD)", fontsize=12, color="white")
-ax.set_title("Średnia kwota zakupów wg sezonu", fontsize=16, color="cyan")
+ax.set_title("Średnia kwota zakupów wg sezonu", fontsize=16, color="yellow")
 ax.tick_params(colors="white")
 st.pyplot(fig)
 
@@ -70,7 +70,7 @@ fig, ax = plt.subplots(figsize=(12, 6))
 sns.histplot(filtered_data["Age"], bins=20, kde=True, color="lime", ax=ax)
 ax.set_xlabel("Wiek", fontsize=12, color="white")
 ax.set_ylabel("Liczba klientów", fontsize=12, color="white")
-ax.set_title("Liczba klientów wg wieku", fontsize=16, color="cyan")
+ax.set_title("Liczba klientów wg wieku", fontsize=16, color="yellow")
 ax.tick_params(colors="white")
 st.pyplot(fig)
 
@@ -81,8 +81,8 @@ fig, ax = plt.subplots(figsize=(12, 6))
 payment_category.plot(kind="bar", stacked=True, ax=ax, colormap="plasma", edgecolor="white")
 ax.set_xlabel("Kategoria", fontsize=12, color="white")
 ax.set_ylabel("Liczba transakcji", fontsize=12, color="white")
-ax.set_title("Rozkład sposobów płatności wg kategorii", fontsize=16, color="cyan")
-ax.legend(title="Sposób płatności", fontsize=10)
+ax.set_title("Rozkład sposobów płatności wg kategorii", fontsize=16, color="yellow")
+ax.legend(title="Sposób płatności", fontsize=10, facecolor=".1", edgecolor="white")
 ax.tick_params(colors="white")
 st.pyplot(fig)
 
@@ -93,16 +93,25 @@ fig, ax = plt.subplots(figsize=(12, 6))
 age_purchase.plot(ax=ax, color="magenta", linewidth=2)
 ax.set_xlabel("Wiek", fontsize=12, color="white")
 ax.set_ylabel("Łączna kwota zakupów (USD)", fontsize=12, color="white")
-ax.set_title("Łączna kwota zakupów w zależności od wieku", fontsize=16, color="cyan")
+ax.set_title("Łączna kwota zakupów w zależności od wieku", fontsize=16, color="yellow")
 ax.grid(True, linestyle="--", alpha=0.5, color=".5")
 ax.tick_params(colors="white")
 st.pyplot(fig)
 
-# Plot 6: Purchases by Season
+# Plot 6: Donut Chart for Purchases by Season
 st.write("### 🕐 Liczba zakupów wg sezonu")
 season_counts = filtered_data["Season"].value_counts()
 fig, ax = plt.subplots(figsize=(10, 10))
-season_counts.plot(kind="pie", autopct='%1.1f%%', ax=ax, colors=sns.color_palette("bright"))
-ax.set_ylabel("")
-ax.set_title("Procentowy udział zakupów w sezonach", fontsize=16, color="cyan")
+colors = sns.color_palette("bright")
+wedges, texts, autotexts = ax.pie(
+    season_counts,
+    autopct='%1.1f%%',
+    startangle=90,
+    colors=colors,
+    wedgeprops={'edgecolor': 'white', 'linewidth': 1, 'width': 0.4}  # Donut hole
+)
+# Adjust text contrast
+for text in texts + autotexts:
+    text.set_color("white")
+ax.set_title("Procentowy udział zakupów w sezonach", fontsize=16, color="yellow")
 st.pyplot(fig)
